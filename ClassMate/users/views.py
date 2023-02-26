@@ -5,7 +5,11 @@ from django.views.generic import CreateView
 
 from django.contrib.auth.views import LoginView
 
-from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+
+from django.contrib.auth import authenticate, login, logout
+
+from django.contrib import messages
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -34,3 +38,8 @@ class SignUpView(CreateView):
 class CustomLoginView(LoginView):
 
     template_name = 'users/login.html'
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("login")
