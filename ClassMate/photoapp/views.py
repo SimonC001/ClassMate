@@ -8,13 +8,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Photo
 
+
 class PhotoListView(ListView):
 
-    model = Photo     
+    model = Photo
 
     template_name = 'photoapp/list.html'
 
     context_object_name = 'photos'
+
 
 class PhotoTagListView(PhotoListView):
 
@@ -32,6 +34,7 @@ class PhotoTagListView(PhotoListView):
         context["tag"] = self.get_tag()
         return context
 
+
 class PhotoDetailView(DetailView):
 
     model = Photo
@@ -40,11 +43,12 @@ class PhotoDetailView(DetailView):
 
     context_object_name = 'photo'
 
+
 class PhotoCreateView(LoginRequiredMixin, CreateView):
 
     model = Photo
 
-    fields = ['title', 'description', 'image', 'tags']
+    fields = ['title', 'description', 'image', 'thumbnail', 'tags']
 
     template_name = 'photoapp/create.html'
 
@@ -55,6 +59,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
         form.instance.submitter = self.request.user
 
         return super().form_valid(form)
+
 
 class UserIsSubmitter(UserPassesTestMixin):
 
@@ -69,6 +74,7 @@ class UserIsSubmitter(UserPassesTestMixin):
         else:
             raise PermissionDenied('Sorry you are not allowed here')
 
+
 class PhotoUpdateView(UserIsSubmitter, UpdateView):
 
     template_name = 'photoapp/update.html'
@@ -78,6 +84,7 @@ class PhotoUpdateView(UserIsSubmitter, UpdateView):
     fields = ['title', 'description', 'tags']
 
     success_url = reverse_lazy('photo:list')
+
 
 class PhotoDeleteView(UserIsSubmitter, DeleteView):
 
