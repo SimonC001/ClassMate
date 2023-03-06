@@ -93,3 +93,12 @@ class PhotoDeleteView(UserIsSubmitter, DeleteView):
     model = Photo
 
     success_url = reverse_lazy('photo:list')
+
+
+class PhotoSearchView(ListView):
+
+    template_name = 'photoapp/search.html'
+
+    model = Photo
+
+    success_url = reverse_lazy('photo:list')
