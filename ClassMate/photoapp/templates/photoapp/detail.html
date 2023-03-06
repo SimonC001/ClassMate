@@ -12,7 +12,7 @@
   {% endif %}
 </div>
 <div class="row pb-5">
-  <div class="col-md-8">
+  <div class="col-md-8 border border-dark rounded">
     <img src="{{photo.thumbnail.url}}" alt="" width="100%" />
   </div>
   <div class="col-md-4">
@@ -23,6 +23,22 @@
       {% endfor %}
     </ul>
     <p>{{ photo.description }}</p>
+    {% load static %}
+    <html>
+
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
+    </html>
+
+        {% load ratings %}
+    <html>
+
+    {% ratings object %}
+
+    </html>
+    <br>
+    <br>
     <a href="{{photo.image.url}}" class="btn btn-primary"
             >View More</a>
   </div>

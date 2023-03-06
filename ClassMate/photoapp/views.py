@@ -93,3 +93,22 @@ class PhotoDeleteView(UserIsSubmitter, DeleteView):
     model = Photo
 
     success_url = reverse_lazy('photo:list')
+
+
+class PhotoSearchView(ListView):
+
+    template_name = 'photoapp/search.html'
+
+    model = Photo
+
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+       result = super(PhotoSearchView, self).get_queryset()
+       query = self.request.GET.get('search')
+       if query:
+          postresult = Photo.title.filter(title__contains=query)
+          result = postresult
+       else:
+           result = None
+       return result
