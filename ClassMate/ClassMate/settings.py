@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     # 3rd party apps
     'taggit',
     'crispy_forms',
+    'star_ratings',
 
-    #custom apps
+    # custom apps
     "photoapp",
     "users",
 ]
