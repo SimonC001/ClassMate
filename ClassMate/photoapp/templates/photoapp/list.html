@@ -2,15 +2,18 @@
 
 {% block body %}
 
+
+
 <div class="row">
   {% for photo in photos %}
-  <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
+  <div class="col-lg-3 col-md-4 col-xs-6 mb-4 relative">
     <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100 border border-dark rounded">
       <img src="{{photo.thumbnail.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
-      <p class="text-center align-text-bottom">{{photo.title}}</p>
+      <p class="text-center align-text-bottom absolute bottom-0">{{photo.title}}</p>
     </a>
   </div>
   {% endfor %}
 </div>
+
 
 {% endblock body %}

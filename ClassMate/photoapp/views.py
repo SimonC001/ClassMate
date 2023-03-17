@@ -7,6 +7,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Photo
+from django.db.models import Q
+from django.shortcuts import render
 
 
 class PhotoListView(ListView):
@@ -104,11 +106,5 @@ class PhotoSearchView(ListView):
     context_object_name = 'photos'
 
     def get_queryset(self):
-       result = super(PhotoSearchView, self).get_queryset()
-       query = self.request.GET.get('search')
-       if query:
-          postresult = Photo.title.filter(title__contains=query)
-          result = postresult
-       else:
-           result = None
-       return result
+       query = self.request.GET.get('q')
+       return Photo.objects.filter(title__icontains=query)
