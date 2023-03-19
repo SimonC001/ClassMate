@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
+from django.contrib.auth.models import User
+from taggit.models import Tag
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 class Photo(models.Model):

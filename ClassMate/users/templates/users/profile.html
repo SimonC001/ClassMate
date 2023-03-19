@@ -1,0 +1,8 @@
+<h1>{{ object.user.username }}</h1>
+<p>{{ object.bio }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+</form>

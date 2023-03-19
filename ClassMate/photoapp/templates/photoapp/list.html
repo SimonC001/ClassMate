@@ -2,18 +2,46 @@
 
 {% block body %}
 
-
-
-<div class="row">
-  {% for photo in photos %}
-  <div class="col-lg-3 col-md-4 col-xs-6 mb-4 relative">
-    <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100 border border-dark rounded">
-      <img src="{{photo.thumbnail.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
-      <p class="text-center align-text-bottom absolute bottom-0">{{photo.title}}</p>
-    </a>
-  </div>
-  {% endfor %}
+<div class="container mt-4">
+  <div>
+  <a class="mb-4" href="{% url 'photo:list' %}"><button class="btn-info rounded">Home</button></a>
+  <form class="d-flex mb-4 mt-4" method="get" action="{% url 'photo:search' %}">
+    {% csrf_token %}
+    <input class="form-control me-2" type="text" placeholder="Search" name="q">
+    <button class="btn-primary rounded" type="submit">Search</button>
+  </form>
 </div>
+
+
+
+<div class="container overflow-auto">
+  <div class="row flex-nowrap">
+  {% for photo in photos %}
+    <div class="col-lg-3 col-md-4 col-xs-6 mb-4 relative">
+      <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100 border border-dark rounded">
+        <img src="{{photo.thumbnail.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
+        <p class="text-center align-text-bottom absolute bottom-0">{{photo.title}}</p>
+      </a>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% if user.is_authenticated and request.path == '/' and pdfs_with_followed_tags > 0 %}
+<h1 class="mt-5 border-top">Followed Tags</h1>
+<div class="container overflow-auto">
+  <div class="row flex-nowrap">
+  {% for pdf in pdfs_with_followed_tags %}
+    <div class="col-lg-3 col-md-4 col-xs-6 mb-4 relative">
+      <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100 border border-dark rounded">
+        <img src="{{photo.thumbnail.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
+        <p class="text-center align-text-bottom absolute bottom-0">{{photo.title}}</p>
+      </a>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endif %}
 
 
 {% endblock body %}

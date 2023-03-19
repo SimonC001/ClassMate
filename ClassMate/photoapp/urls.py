@@ -8,7 +8,7 @@ from .views import (
     PhotoCreateView,
     PhotoUpdateView,
     PhotoDeleteView,
-    PhotoSearchView
+    PhotoSearchView,
 )
 
 app_name = 'photo'

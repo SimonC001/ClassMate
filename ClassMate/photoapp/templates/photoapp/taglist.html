@@ -2,8 +2,45 @@
 
 {% block body %}
 
-<div class="alert alert-primary">
+<div class="alert alert-primary text-center">
     <h2 class="text-center">Photos with the tag {{tag}}</h2>
+
+    {% if user.is_authenticated %}
+    <button id="follow" class="btn btn-primary mt-3">Follow Tag {{ tag }}</button>
+    <!-- <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="follow" class="btn btn-primary">Follow Tag</button>
+    </form> -->
+    {% else %}
+    <h6>Sign in to follow tag</h6>
+    {% endif %}
+
+    <script>
+        // Get the button element by its ID
+        var button = document.getElementById("follow");
+      
+        // Set a flag to keep track of whether the button has been pressed
+        var isPressed = false;
+      
+        // Add an event listener to the button
+        button.addEventListener("click", function() {
+          if (isPressed) {
+            // Change the text and background color back to the original state
+            button.innerHTML = "Follow Tag {{ tag }}";
+            button.style.backgroundColor = "";
+            // Add tag to list
+
+          } else {
+            // Change the text and background color to the "pressed" state
+            button.innerHTML = "Followed";
+            button.style.backgroundColor = "green";
+          }
+          // Toggle the flag
+          isPressed = !isPressed;
+        });
+      </script>
+
 </div>
 
 {{ block.super }}

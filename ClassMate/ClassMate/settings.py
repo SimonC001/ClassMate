@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # custom apps
     "photoapp",
     "users",
+    "followers",
 ]
 
 # Django taggit

@@ -1,14 +1,15 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView, RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Photo
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from taggit.models import Tag
+from django.urls import reverse
 
 
 class PhotoListView(ListView):
@@ -108,3 +109,4 @@ class PhotoSearchView(ListView):
     def get_queryset(self):
        query = self.request.GET.get('q')
        return Photo.objects.filter(title__icontains=query)
+    

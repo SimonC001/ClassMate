@@ -22,15 +22,6 @@
   </head>
   <body>
     {% include 'navbar.html' %}
-    <div class="container mt-4">
-      <div>
-      <a class="mb-4" href="{% url 'photo:list' %}"><button class="btn-info rounded">Home</button></a>
-      <form class="d-flex mb-4 mt-4" method="get" action="{% url 'photo:search' %}">
-        {% csrf_token %}
-        <input class="form-control me-2" type="text" placeholder="Search" name="q">
-        <button class="btn-primary rounded" type="submit">Search</button>
-      </form>
-    </div>
 
     {% block body %} 
 

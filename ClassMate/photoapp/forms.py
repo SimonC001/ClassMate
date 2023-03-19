@@ -1,6 +1,7 @@
 import os
 from django import forms
 from .models import Photo
+from taggit.forms import TagWidget
 
 class PDF(forms.ModelForm):
     class Meta:
@@ -23,3 +24,11 @@ class PDF(forms.ModelForm):
             if ext not in ['.pdf', '.PDF']:
                 raise forms.ValidationError("Only images and PDF files allowed")
         return uploaded_file
+    
+
+class PDFTaggerForm(forms.ModelForm):
+    tags = forms.CharField(widget=TagWidget())
+
+    class Meta:
+        model = Photo
+        fields = ['image', 'tags']
