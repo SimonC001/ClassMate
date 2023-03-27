@@ -1,13 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
-    bio = models.TextField(blank=True)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    bio = models.TextField(max_length=200, default='')
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} Profile' #show how we want it to be displayed
     
-    class Meta:
-        db_table = 'user_profile'
+    # Override the save method of the model
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
+        img = Image.open(self.image.path) # Open image
+
+        # resize image
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size) # Resize image
+            img.save(self.image.path) # Save it again and override the larger image
