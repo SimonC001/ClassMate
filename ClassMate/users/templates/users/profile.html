@@ -1,8 +1,37 @@
-<h1>{{ object.user.username }}</h1>
-<p>{{ object.bio }}</p>
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
 
-<form method="post">
+{% block body %}
+<div class="content-section container mt-4">
+    <a href="{% url 'photo:list' %}"><button class="btn-info rounded">Home</button></a>
+  <div class="media text-center mt-4">
+    <img
+      class="rounded-circle account-img width: 100%"
+      src="{{ user.profile.image.url }}"
+    />
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p>{{ user.profile.bio }}</p>
+    </div>
+  </div>
+
+  <!-- IF YOU ARE THE USER [ADD IF] -->
+  {% if user.username == user.username %}
+  <!-- FORM HERE -->
+  <form method="POST" enctype="multipart/form-data" class="p-4" action="{% url 'user:profile' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
-</form>
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Profile Info</legend>
+      {{ u_form|crispy }}
+      <!-- User form -->
+      <br>
+      {{ p_form|crispy }}
+      <!-- Profile form -->
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info mt-4" type="submit">Update</button>
+    </div>
+  </form>
+  {% endif %}
+</div>
+{% endblock body %}

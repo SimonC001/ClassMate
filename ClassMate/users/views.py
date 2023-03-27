@@ -4,14 +4,17 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import UserProfile
-from .forms import UserProfileForm
+
+from django.contrib.auth.decorators import login_required
+# Import User UpdateForm, ProfileUpdatForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+
 
 class SignUpView(CreateView):
 
@@ -44,32 +47,29 @@ def logout_request(request):
     messages.info(request, "You have successfully logged out.")
     return redirect("login")
 
-# # CHANGE THIS FROM LOGIN TO DETAIL WHEN PROFILES ARE MADE
-# class ProfileView(LoginView):
 
-#     template_name = 'users/profile.html'
+# Update it here
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('/users/profile/') # Redirect back to profile page
 
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
-class UserProfileView(LoginRequiredMixin, DetailView):
-    model = UserProfile
-    template_name = 'users/profile.html'
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
 
-    def get_object(self):
-        return self.request.user.userprofile
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['form'] = UserProfileForm(self.request.POST, instance=self.object)
-        else:
-            context['form'] = UserProfileForm(instance=self.object)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = UserProfileForm(request.POST, instance=self.object)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse_lazy('profile'))
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+    return render(request, 'users/profile.html', context)
+    
