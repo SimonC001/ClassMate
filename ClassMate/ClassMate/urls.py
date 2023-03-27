@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Main app
     path('', include('photoapp.urls')),
+    path("__reload__/", include("django_browser_reload.urls")),
     # Auth app
     path('users/', include('users.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),

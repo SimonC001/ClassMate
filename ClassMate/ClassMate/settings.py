@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'taggit',
     'crispy_forms',
     'star_ratings',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 
     # custom apps
     "photoapp",
@@ -49,7 +52,15 @@ INSTALLED_APPS = [
     "followers",
 ]
 
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Django taggit
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 TAGGIT_CASE_INSENSITIVE = True
 
@@ -61,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware'
 ]
 
 ROOT_URLCONF = 'ClassMate.urls'

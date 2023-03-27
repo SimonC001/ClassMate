@@ -1,46 +1,45 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block body %}
-<div class="mx-auto">
-  <h1 class="text-center">{{ photo.title }}</h1>
-  <p class="text-center fw-light">Uploaded on: {{photo.created}} <br> By {{photo.submitter.username}}</p>
+<div class="mx-auto pt-7">
+  <div class="border border-dark rounded-md mx-auto">
+    <a href="{{photo.image.url}}"><img src="{{photo.thumbnail.url}}" alt="" class="rounded-md md:w-80 mx-auto" /></a>
+  </div>
+  <h1 class="text-center font-bold pt-10">{{ photo.title }}</h1>
+  <p class="text-center font-light">Uploaded on: {{photo.created}} <br> By {{photo.submitter.username}}</p>
   {% if user == photo.submitter %}
     <p class="text-center">
-      <span><a href="{% url 'photo:update' photo.id %}" class="text-primary px-2">Update</a></span>
-      <span><a href="{% url 'photo:delete' photo.id %}" class="text-danger px-2">Delete</a></span>
+      <span><a href="{% url 'photo:update' photo.id %}" class="btn btn-sm bg-red-500 hover:bg-gray-700 text-white">Update</a></span>
+      <span><a href="{% url 'photo:delete' photo.id %}" class="btn btn-sm bg-red-500 hover:bg-gray-700 text-white">Delete</a></span>
     </p>
   {% endif %}
 </div>
-<div class="row pb-5">
-  <div class="col-md-8 border border-dark rounded">
-    <img src="{{photo.thumbnail.url}}" alt="" width="100%" />
-  </div>
-  <div class="col-md-4">
-    <h4>More about this photo:</h4>
-    <ul class="list-group list-group-horizontal-lg list-unstyled py-4">
-      {% for tag in photo.tags.all %}
-        <li><a href="{% url 'photo:tag' tag.slug %}" class="btn btn-sm list-group-item list-group-item-primary">{{tag.name}}</a></li>
-      {% endfor %}
-    </ul>
-    <p>{{ photo.description }}</p>
-    {% load static %}
-    <html>
-
-    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
-    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
-
-    </html>
-
-        {% load ratings %}
-    <html>
-
+<div class="grid grid-cols-1 md:grid-cols-1 gap-4 pt-7 pb-3">
+  <div class="flex flex-col justify-center md:justify-start mx-auto">
+    <div>
+      <h4 class="text-center font-bold md:text-left">Rating:</h4>
+      {% load static %}
+      <html>
+        <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+        <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+      </html>
+  {% load ratings %}
+  <html>
     {% ratings object %}
+  </html>
+</div>
+<div class="mt-4 md:mt-0">
+  <h4 class="text-center font-bold md:text-left">More about this photo:</h4>
+  <p class="text-center font-light md:text-left">{{ photo.description }}</p>
+  <ul class="flex flex-wrap gap-2 py-4 justify-center md:justify-start">
+    <h4 class="text-center font-bold md:text-left">Tags:</h4>
+    {% for tag in photo.tags.all %}
+      <li><a href="{% url 'photo:tag' tag.slug %}" class="btn btn-sm bg-red-500 text-white">{{tag.name}}</a></li>
+    {% endfor %}
+  </ul>
+  
+</div>
 
-    </html>
-    <br>
-    <br>
-    <a href="{{photo.image.url}}" class="btn btn-primary"
-            >View More</a>
   </div>
 </div>
 

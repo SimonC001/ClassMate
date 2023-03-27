@@ -1,43 +1,35 @@
 <!-- templates/navbar.html -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'photo:list' %}">ClassMate</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="collapse navbar-collapse flex-row-reverse"
-        id="navbarTogglerDemo02"
-      >
-        <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-  
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'photo:create' %}">Add a photo</a>
-          </li>
-          <li class="nav-item">
-            <!-- FIX THIS -->
-            <a class="nav-link active" href="{% url 'user:profile' %}">Hi {{user.username}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'user:logout' %}">Logout</a>
-          {% else %}
-  
-          <li class="nav-item">
-            <a href="{% url 'user:login' %}" class="btn btn-sm btn-danger">Sign In</a
-            >
-          </li>
-          {% endif %}
-        </ul>
-      </div>
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+</html>
+<nav class="bg-red-800">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
+    <div class="flex-shrink-0 flex items-center">
+      <a href="{% url 'photo:list' %}" class="text-white text-xl font-bold">ClassMate</a>
     </div>
-  </nav>
-  
+    <div class="hidden sm:block sm:ml-6 flex items-center">
+      <ul class="flex space-x-4">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'photo:create' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add a photo</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'user:profile' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Hi {{user.username}}</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'user:logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'user:login' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign In</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

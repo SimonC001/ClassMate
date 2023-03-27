@@ -1,9 +1,8 @@
 {% extends 'photoapp/list.html' %}
 
 {% block body %}
-
-<h1 class="text-center">You Searched For...</h1>
-
-{{ block.super }}
-
-{% endblock body %}
+<h1 class="text-center mt-4 text-3xl font-bold">You Searched For...</h1>
+<div class="grid grid-cols-1 mx-auto gap-4">
+    {{ block.super }}
+  </div>
+{% endblock %}
