@@ -2,18 +2,18 @@
 {% load crispy_forms_tags %}
 {% block body %}
 <div class="mx-auto text-center p-4">
-  <div class="form-group">
+  <div class="form-group mx-auto max-w-md bg-slate-200 border-4 border-red-800">
     <form action="" method="post">
       {% csrf_token %} 
       {{ form|crispy }}
-      <button type="submit" class="bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full my-3">Create account</button>
+      <button type="submit" class="bg-red-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded my-3">Create account</button>
     </form>
   </div>
   {% comment %}  Already Registered {% endcomment %}
   <div class="text-center w-100">
     <p class="text-muted font-weight-bold">
       Already Registered?
-      <a href="{% url 'user:login' %}" class="text-red-500 font-bold ml-2"> Login </a>
+      <a href="{% url 'user:login' %}" class="text-red-800 font-bold ml-2"> Login </a>
     </p>
   </div>
 </div>

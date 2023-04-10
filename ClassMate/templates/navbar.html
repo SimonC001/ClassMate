@@ -10,23 +10,23 @@
 <nav class="bg-red-800">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
     <div class="flex-shrink-0 flex items-center">
-      <a href="{% url 'photo:list' %}" class="text-white text-xl font-bold">ClassMate</a>
+      <a href="{% url 'photo:list' %}" class="text-white text-xl font-bold mb-2">ClassMate</a>
     </div>
-    <div class="hidden sm:block sm:ml-6 flex items-center">
+    <div class=" sm:block sm:ml-6 flex items-center">
       <ul class="flex space-x-4">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a href="{% url 'photo:create' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add a photo</a>
+          <a href="{% url 'photo:create' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold">Add a photo</a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'user:profile' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Hi {{user.username}}</a>
+          <a href="{% url 'user:profile' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"><img class="w-7 h-7 rounded-full inline-block mr-2 mb-1" src="{{ user.profile.image.url }}"/>{{user.username}}</a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'user:logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+          <a href="{% url 'user:logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold">Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a href="{% url 'user:login' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign In</a>
+          <a href="{% url 'user:login' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold inline-block mb-1">Sign In</a>
         </li>
         {% endif %}
       </ul>

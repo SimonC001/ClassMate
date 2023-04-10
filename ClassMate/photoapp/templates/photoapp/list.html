@@ -3,21 +3,24 @@
 {% block body %}
 <div class="container mt-4">
   <div class="flex justify-center mb-4 mt-4">
+    <a href="{% url 'photo:list' %}"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Home</button></a>
     <form class="flex items-center w-1/2" method="get" action="{% url 'photo:search' %}">
       {% csrf_token %}
       <input class="w-full border border-gray-400 py-2 px-4 rounded-lg mr-2" type="text" placeholder="Search" name="q">
-      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200" type="submit">Search</button>
+      <button class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200" type="submit">Search</button>
     </form>
   </div>
 
+  {% if request.path == '/' %}
   <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">All Files</h1>
+  {% endif %}
   <div class="container overflow-x-auto">
     <div class="flex flex-row flex-nowrap">
     {% for photo in photos %}
       <div class="lg:w-1/4 md:w-1/3 sm:w-1/2 w-full mb-4 relative transition duration-200 transform hover:scale-105">
         <a href="{% url 'photo:detail' photo.id %}" class="block h-full border border-gray-400 rounded">
           <img src="{{photo.thumbnail.url}}" class="w-full h-auto rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-          <p class="text-center absolute bottom-0 w-full bg-red-500 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+          <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
         </a>
       </div>
     {% endfor %}
@@ -36,7 +39,7 @@
       <div class="lg:w-1/4 md:w-1/3 sm:w-1/2 w-full mb-4 relative transition duration-200 transform hover:scale-105">
         <a href="{% url 'photo:detail' photo.id %}" class="block h-full border border-gray-400 rounded">
           <img src="{{photo.thumbnail.url}}" class="w-full h-auto rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-          <p class="text-center absolute bottom-0 w-full bg-red-500 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+          <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
         </a>
       </div>
     {% endfor %}
