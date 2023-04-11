@@ -11,51 +11,58 @@
     </form>
   </div>
 
+  <!-- ALL FILES -->
+  {% if request.path == '/' %}
+  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">All Files</h1>
+  {% endif %}
+  <div class="flex overflow-x-scroll gap-10 p-4">
+    {% for photo in photos %}
+        <div class="relative flex-shrink-0 w-56">
+          <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
+            <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+          </a>
+        </div>
+    {% endfor %}
+  </div>
+
+
+<!-- COMPUTER SCIENCE -->
 {% if request.path == '/' %}
   <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Computer Science</h1>
-{% endif %}
-<div class="flex overflow-x-scroll gap-10 p-4">
-  {% for photo in photos %}
-    {% if 'Computer Science' in photo.tags.names %}
-      <div class="relative flex-shrink-0 w-56">
-        <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
-          <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-          <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
-        </a>
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
+  <div class="flex overflow-x-scroll gap-10 p-4">
+    {% for photo in photos %}
+      {% if 'Computer Science' in photo.tags.names %}
+        <div class="relative flex-shrink-0 w-56">
+          <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
+            <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  </div>
 
+
+  <!-- MATH -->
 {% if request.path == '/' %}
   <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Math</h1>
-{% endif %}
-<div class="flex overflow-x-scroll gap-10 p-4">
-  {% for photo in photos %}
-    {% if 'Math' in photo.tags.names %}
-      <div class="relative flex-shrink-0 w-56">
-        <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
-          <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-          <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
-        </a>
-      </div>
+  <div class="flex overflow-x-scroll gap-10 p-4">
+    {% for photo in photos %}
+      {% if 'Math' in photo.tags.names %}
+        <div class="relative flex-shrink-0 w-56">
+          <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
+            <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
     {% endif %}
-  {% endfor %}
-</div>
+  </div>
 
-{% if request.path == '/' %}
-  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">All Files</h1>
-{% endif %}
-<div class="flex overflow-x-scroll gap-10 p-4">
-  {% for photo in photos %}
-      <div class="relative flex-shrink-0 w-56">
-        <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
-          <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-          <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
-        </a>
-      </div>
-  {% endfor %}
-</div>
+
 
 {% if user.is_authenticated and request.path == '/' and pdfs_with_followed_tags > 0 %}
   <h1 class="mt-5 border-t">Followed Tags</h1>
