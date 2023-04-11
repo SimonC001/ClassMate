@@ -1,6 +1,6 @@
 import os
 from django import forms
-from .models import Photo, Comment
+from .models import Photo, BlogComment
 from taggit.forms import TagWidget
 
 
@@ -35,8 +35,7 @@ class PDFTaggerForm(forms.ModelForm):
         model = Photo
         fields = ['image', 'tags']
 
-
-class CommentForm(forms.ModelForm):
+class NewCommentForm(forms.ModelForm):
     class Meta:
-        model = Comment
-        fields = ('name', 'email', 'body')
+        model = BlogComment
+        fields = ['content']
