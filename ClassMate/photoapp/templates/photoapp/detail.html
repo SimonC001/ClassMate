@@ -2,7 +2,8 @@
 
 {% block body %}
 <div class="mx-auto">
-  <h1 class="text-center font-bold mt-4">{{ photo.title }}</h1>
+  <h1 class="text-center font-bold mt-4 text-4xl text-red-800 uppercase">{{ photo.title }}</h1>
+
   <p class="block text-center fw-light mb-2">Uploaded on: {{photo.created}} <br> By 
     <img
     class="rounded-circle account-img mx-auto inline-block"
@@ -21,15 +22,23 @@
 </div>
 <div class="flex pb-4">
   <div class="w-3/5 mx-auto">
-    <img src="{{photo.thumbnail.url}}" alt="" class="border-5 border-red-800 mx-auto" />
+    <a href="{{photo.image.url}}" target="_blank">
+      <img src="{{photo.thumbnail.url}}" alt="" class="border-5 border-red-800 mx-auto transform hover:scale-105 transition duration-300 ease-in-out" />
+    </a>
   </div>
+  
   <div class="w-2/5 mx-auto">
     <h4 class="mb-1">This photo is tagged:</h4>
     <ul class="list-group list-group-horizontal-lg list-unstyled">
       {% for tag in photo.tags.all %}
-        <li><a href="{% url 'photo:tag' tag.slug %}" class="btn btn-sm list-group-item list-group-item-primary mb-4">{{tag.name}}</a></li>
+        <li>
+          <a href="{% url 'photo:tag' tag.slug %}" class="inline-block btn btn-sm mb-4 bg-red-800 hover:bg-red-700 text-white font-bold border border-red-800 hover:border-red-700 transition duration-200 ease-in-out rounded px-4 py-2">
+            {{tag.name}}
+          </a>
+        </li>
       {% endfor %}
     </ul>
+    
     <p class="mb-6">Description: <br>{{ photo.description }}</p>
     {% load static %}
     <html>
@@ -47,51 +56,48 @@
     </html>
     <br>
     <br>
-    <a href="{{photo.image.url}}" class="btn btn-primary mb-40"
-            >Read</a>
-
-    <!-- COMMENTS -->
-    <h2>Leave your comment!</h2>
-      <div id="comments_section">
-
+    <div class="flex gap-2">
+      <div class="flex-grow">
         {% if user.is_authenticated %}
         <form method="POST">
           {% csrf_token %}
-          <div class="form-group">
-            {{ comment_form }}
-            <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+          <div class="form-group flex-col">
+            <button class="bg-red-800 hover:bg-red-700 text-white font-bold py-1.5 px-4 rounded transition duration-200 inline-block mb-1" type="submit">Add comment <i class="fas fa-comments"></i></button> 
+            <div class="form-group flex-col">
+        <label for="{{ comment_form.content.auto_id }}" class="font-bold">Content:</label>
+        {{ comment_form.content }}
+      </div>
           </div>
         </form>
         {% else %}
-        <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+        <div class="form-group">
+          <a class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200" href="{% url 'user:login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+        </div>
+        <br>
         {% endif %}
-
-        {% if comments %}
-        <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
-        <hr>
-        <ul>
-          {% for comment in comments %}
-          <li>
+      </div>
+    </div>
+    
+    <div>
+      {% if comments %}
+      <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+      <ul>
+        {% for comment in comments %}
+        <li>
           <div>
-              <span>
-                <strong class="text-info">{{ comment.author }} </strong>
-                <small class="text-muted">{{ comment.date_posted }}</small>
-              </span>
-              <p>
-                {{ comment.content|safe }}
-              </p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-        {% else %}
-          <strong class="text-secondary">No comments yet...</strong>
-        {% endif %}
-
-</div>
-  </div>
-</div>
-
-
-
+            <span>
+              <strong class="text-info">{{ comment.author }} </strong>
+              <small class="text-muted">{{ comment.date_posted }}</small>
+            </span>
+            <p>
+              {{ comment.content|safe }}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <strong class="text-secondary">No comments yet...</strong>
+      {% endif %}
+    </div>
 {% endblock body %}

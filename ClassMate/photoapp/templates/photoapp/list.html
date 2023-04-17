@@ -3,20 +3,20 @@
 {% block body %}
 <div class="container mt-4">
   <div class="flex justify-center mb-4 mt-4">
-    <a href="{% url 'photo:list' %}"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Home</button></a>
+    <a href="{% url 'photo:list' %}"><button class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200">Home</button></a>
     <form class="flex items-center w-1/2" method="get" action="{% url 'photo:search' %}">
       {% csrf_token %}
-      <input class="w-full border border-gray-400 py-2 px-4 rounded-lg mr-2" type="text" placeholder="Search" name="q">
+      <input class="w-full border border-gray-400 py-2 px-4 rounded-lg ml-2 mr-2" type="text" placeholder="Search" name="q">
       <button class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200" type="submit">Search</button>
     </form>
   </div>
 
   <!-- ALL FILES -->
   {% if request.path == '/' %}
-  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">All Files</h1>
+  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Newly Added</h1>
   {% endif %}
   <div class="flex overflow-x-scroll gap-10 p-4">
-    {% for photo in photos %}
+    {% for photo in photos|slice:":10"  %}
         <div class="relative flex-shrink-0 w-56">
           <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
             <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
