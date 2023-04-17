@@ -16,10 +16,10 @@
   </div>
 
   <!-- IF YOU ARE THE USER [ADD IF] -->
-  {% if user.username == user.username %}
+  <!-- {% if user.username == user.username %} -->
   <!-- FORM HERE -->
   <div class="py-3 bg-slate-200 border-4 border-red-800">
-  <form method="POST" enctype="multipart/form-data" class="p-4" action="{% url 'user:profile' %}">
+  <form method="POST" enctype="multipart/form-data" class="p-4" action="{% url 'user:profile' username=request.user.username %}">
     {% csrf_token %}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Profile Info</legend>
@@ -34,6 +34,6 @@
     </div>
   </form>
   </div>
-  {% endif %}
+  <!-- {% endif %} -->
 </div>
 {% endblock body %}

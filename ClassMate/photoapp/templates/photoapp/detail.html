@@ -9,8 +9,8 @@
     style="width: 30px; height: 30px;"
     src="{{photo.submitter.profile.image.url}}"
   />
-  <a href="{% url 'user:profile' %}">{{photo.submitter.username}}</a></p>
-  <!-- photo.submitter.user.prfole -->
+  <a href="{% url 'user:profile' username=photo.submitter.username %}">{{photo.submitter.username}}</a></p>
+  <!-- photo.submitter.user.profile -->
 
   {% if user == photo.submitter %}
     <p class="text-center mb-4">
@@ -63,7 +63,7 @@
           </div>
         </form>
         {% else %}
-        <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+        <a class="btn btn-outline-info" href="{% url 'user:login' %}?next={{request.path}}">Log in to add a comment!</a><br>
         {% endif %}
 
         {% if comments %}
