@@ -19,7 +19,7 @@
           <a href="{% url 'photo:create' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold">Add a photo</a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'user:profile' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"><img class="w-7 h-7 rounded-full inline-block mr-2 mb-1" src="{{ user.profile.image.url }}"/>{{user.username}}</a>
+          <a href="{% url 'user:profile' username=request.user.username %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"><img class="w-7 h-7 rounded-full inline-block mr-2 mb-1" src="{{ request.user.profile.image.url }}"/>{{request.user.username}}</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'user:logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold">Logout</a>

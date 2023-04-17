@@ -10,8 +10,8 @@
     style="width: 30px; height: 30px;"
     src="{{photo.submitter.profile.image.url}}"
   />
-  <a href="{% url 'user:profile' %}">{{photo.submitter.username}}</a></p>
-  <!-- photo.submitter.user.prfole -->
+  <a href="{% url 'user:profile' username=photo.submitter.username %}">{{photo.submitter.username}}</a></p>
+  <!-- photo.submitter.user.profile -->
 
   {% if user == photo.submitter %}
     <p class="text-center mb-4">
@@ -70,10 +70,14 @@
           </div>
         </form>
         {% else %}
+<<<<<<< HEAD
         <div class="form-group">
           <a class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200" href="{% url 'user:login' %}?next={{request.path}}">Log in to add a comment!</a><br>
         </div>
         <br>
+=======
+        <a class="btn btn-outline-info" href="{% url 'user:login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+>>>>>>> 043b71054231fc34e736bda8a6110613ac75b559
         {% endif %}
       </div>
     </div>

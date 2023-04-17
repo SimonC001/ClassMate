@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -38,9 +38,11 @@ class SignUpView(CreateView):
 
         return to_return
 
+
 class CustomLoginView(LoginView):
 
     template_name = 'users/login.html'
+
 
 def logout_request(request):
     logout(request)
@@ -50,7 +52,9 @@ def logout_request(request):
 
 # Update it here
 @login_required
-def profile(request):
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    is_current_user = (request.user == user)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -60,16 +64,17 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('/users/profile/') # Redirect back to profile page
+            return redirect('user:profile', username=user.username)
 
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
+        'user': user,
+        'is_current_user': is_current_user,
         'u_form': u_form,
         'p_form': p_form
     }
 
     return render(request, 'users/profile.html', context)
-    
