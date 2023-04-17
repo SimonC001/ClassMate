@@ -54,22 +54,27 @@ def logout_request(request):
 @login_required
 def profile(request, username):
     user = get_object_or_404(User, username=username)
+    is_current_user = (request.user == user)
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=user.profile)
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            # Redirect back to profile page
             return redirect('user:profile', username=user.username)
+
     else:
-        u_form = UserUpdateForm(instance=user)
-        p_form = ProfileUpdateForm(instance=user.profile)
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
     context = {
         'user': user,
+        'is_current_user': is_current_user,
         'u_form': u_form,
         'p_form': p_form
     }
+
     return render(request, 'users/profile.html', context)
