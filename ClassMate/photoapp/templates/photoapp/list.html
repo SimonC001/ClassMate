@@ -13,54 +13,55 @@
 
   <!-- ALL FILES -->
   {% if request.path == '/' %}
-  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Newly Added</h1>
+  <h1 class="text-left mt-4 text-3xl font-bold text-white pl-2 pb-4">Newly Added</h1>
   {% endif %}
   <div class="flex overflow-x-scroll gap-10 p-4">
-    {% for photo in photos|slice:":10"  %}
+    {% for photo in photos|slice:":10"%}
         <div class="relative flex-shrink-0 w-56">
           <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
             <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-100 text-white p-2">{{photo.title}}</p>
           </a>
         </div>
     {% endfor %}
   </div>
-
-
-<!-- COMPUTER SCIENCE -->
-{% if request.path == '/' %}
-  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Computer Science</h1>
-  <div class="flex overflow-x-scroll gap-10 p-4">
-    {% for photo in photos %}
-      {% if 'Computer Science' in photo.tags.names %}
-        <div class="relative flex-shrink-0 w-56">
-          <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
-            <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
-          </a>
-        </div>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-  </div>
-
 
   <!-- MATH -->
 {% if request.path == '/' %}
-  <h1 class="text-left mt-4 text-3xl font-bold pl-2 pb-4">Math</h1>
+  <h1 class="text-left mt-4 text-3xl font-bold text-white pl-2 pb-4">Math</h1>
   <div class="flex overflow-x-scroll gap-10 p-4">
     {% for photo in photos %}
       {% if 'Math' in photo.tags.names %}
         <div class="relative flex-shrink-0 w-56">
           <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
             <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
-            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-50 text-white p-2">{{photo.title}}</p>
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-100 text-white p-2">{{photo.title}}</p>
           </a>
         </div>
       {% endif %}
     {% endfor %}
     {% endif %}
   </div>
+
+<!-- COMPUTER SCIENCE -->
+{% if request.path == '/' %}
+  <h1 class="text-left mt-4 text-3xl font-bold text-white pl-2 pb-4">Computer Science</h1>
+  <div class="flex overflow-x-scroll gap-10 p-4">
+    {% for photo in photos %}
+      {% if 'Computer Science' in photo.tags.names %}
+        <div class="relative flex-shrink-0 w-56">
+          <a href="{% url 'photo:detail' photo.id %}" class="block border border-gray-400 rounded">
+            <img src="{{photo.thumbnail.url}}" class="w-full h-100 object-cover rounded hover:opacity-75 transition duration-200" alt="{{photo.title}}" />
+            <p class="text-center absolute bottom-0 w-full bg-red-800 bg-opacity-100 text-white p-2">{{photo.title}}</p>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  </div>
+
+
+
 
 
 
