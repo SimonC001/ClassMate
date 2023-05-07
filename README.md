@@ -1,3 +1,4 @@
+![Website Logo](/static/images/StudyBuddy.PNG)
 # ClassMate
 
 Cloning the repository
