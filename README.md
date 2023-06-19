@@ -5,7 +5,7 @@ Cloning the repository
 --> Clone the repository using the command below :
 
 ```
-git clone https://github.com/Lockwood-02/ClassMate.git
+git clone https://github.com/SimonC001/ClassMate.git
 ```
 
 --> Move into the directory where we have the project files :
